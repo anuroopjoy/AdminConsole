@@ -1,0 +1,20 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "test hapi server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "catbox-redis": "^2.0.2",
+    "dogwater": "^2.1.0",
+    "hapi": "^14.1.0",
+    "inert": "^4.0.1",
+    "waterline": "^0.12.2",
+    "waterline-mssql": "^1.0.6",
+    "waterline-sqlserver": "^1.1.5"
+  }
+}
