@@ -193,3 +193,5 @@ server.route({
     }
 });
 
+exports = module.exports = {};
+exports.server = server;

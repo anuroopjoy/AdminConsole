@@ -3,6 +3,7 @@
 var myImports = require('./headers.js');
 
 const Hapi = myImports.Hapi;
+const server = myImports.server;
 
 let uuid = 1;       // Use seq instead of proper unique identifiers for demo only
 
@@ -78,19 +79,6 @@ const logout = function (request, reply) {
     return reply.redirect('/');
 };
 
-const server = new Hapi.Server({
-    cache: [
-        {
-            name: 'redisCache',
-            engine: require('catbox-redis'),
-            host: '127.0.0.1',
-            partition: 'cache'
-        }
-    ]
-});
-
-server.connection({host: 'myserver.com', address: '192.168.2.161', port: 4000 });
-
 server.register(require('hapi-auth-cookie'), (err) => {
 
     if (err) {
@@ -104,6 +92,7 @@ server.register(require('hapi-auth-cookie'), (err) => {
         password: 'password-should-be-32-characters',
         cookie: 'sid-example',
         redirectTo: '/login',
+        ttl: 30 * 60 * 1000, // Set session to 30 minutes
         isSecure: false,
         validateFunc: function (request, session, callback) {
 

@@ -1,12 +1,12 @@
 'use strict'
 
 var myImports = require('./headers.js');
+require('./auth.js');
 const Hapi = myImports.Hapi;
 const Dogwater = myImports.Dogwater;
 const SQLadapter = myImports.SQLadapter;
-
-myImports = require('./auth.js');
 const server = myImports.server;
+
 
 server.register(require('inert'), (err) => {
 
@@ -109,15 +109,6 @@ server.register({
         });
         
 });    
-
-server.start((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log(`Server running at: ${server.info.uri}`);
-    console.log(`Server running at: ${server.info.host}`);
-});
-
 
 exports = module.exports = {};
 exports.server = server;
