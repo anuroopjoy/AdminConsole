@@ -53,6 +53,7 @@ const login = function (request, reply) {
     if (request.method === 'get' ||
         message) {
 
+        request.cookieAuth.clear();
         return reply('<html><head><title>Login page</title></head><body>' +
             (message ? '<h3>' + message + '</h3><br/>' : '') +
             '<form method="post" action="/login">' +
@@ -90,12 +91,12 @@ server.register(require('hapi-auth-cookie'), (err) => {
 
     server.auth.strategy('session', 'cookie', true, {
         password: 'password-should-be-32-characters',
-        cookie: 'sid-example',
+        cookie: 'session-id',
         redirectTo: '/login',
-        ttl: 30 * 60 * 1000, // Set session to 30 minutes
+        domain: server.info.host,
+        ttl: 60 * 60 * 1000, // Set session to 1 hour
         isSecure: false,
         validateFunc: function (request, session, callback) {
-
             cache.get(session.sid, (err, cached) => {
 
                 if (err) {
