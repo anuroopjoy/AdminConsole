@@ -13,6 +13,7 @@
     "dogwater": "^2.1.0",
     "hapi": "^14.1.0",
     "hapi-auth-cookie": "^6.1.1",
+    "hapi-authorization": "^3.0.2",
     "inert": "^4.0.1",
     "waterline": "^0.12.2",
     "waterline-mssql": "^1.0.6",
