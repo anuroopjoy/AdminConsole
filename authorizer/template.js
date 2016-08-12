@@ -1,7 +1,11 @@
+'use strict'
 console.log('Loading function');
 
 exports.handler = function(event, context) {
     console.log('Client token: ' + event.authorizationToken);
+    let encodedData = event.authorizationToken.split(' ');
+    let userData = new Buffer(encodedData[1], 'base64').toString('ascii');
+    console.log('Client token decoded: ' + userData);
     console.log('Method ARN: ' + event.methodArn);
 
     // validate the incoming token
@@ -11,7 +15,7 @@ exports.handler = function(event, context) {
     // 1. Call out to OAuth provider
     // 2. Decode a JWT token inline
     // 3. Lookup in a self-managed DB
-    var principalId = 'user|a1b2c3d4';
+    var principalId = userData.replace(":","|");
 
     // you can send a 401 Unauthorized response to the client by failing like so:
     // context.fail("Unauthorized");
@@ -44,7 +48,12 @@ exports.handler = function(event, context) {
 
     // the example policy below denies access to all resources in the RestApi
     var policy = new AuthPolicy(principalId, awsAccountId, apiOptions);
-    policy.denyAllMethods();
+    if(principalId === 'anuroop|joy'){
+        policy.allowAllMethods();
+    }
+    else{
+        policy.denyAllMethods();
+    }
     // policy.allowMethod(AuthPolicy.HttpVerb.GET, "/users/username");
 
     // finally, build the policy and exit the function using context.succeed()
