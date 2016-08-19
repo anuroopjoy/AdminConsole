@@ -23,6 +23,8 @@ myApp.controller('UserCtrl', function ($scope, $http, $window) {
   $scope.isAuthenticated = false;
   $scope.welcome = '';
   $scope.message = '';
+  var myData = {"name": "Anuroop Joy"};
+  var apiKey = 'dxpmy62y1gy10ltkrst2wqaoruxn9pqehjvuet1shyoh9qkt9lzi1vjb19u000fbrcq0zwu3di';
 
   $scope.submit = function () {
     $http
@@ -59,6 +61,16 @@ myApp.controller('UserCtrl', function ($scope, $http, $window) {
     })
     .error(function (data, status, headers, config) {
       alert(data);
+    });
+  };
+
+  $scope.callAzure = function () {
+    $http.post('https://function-poc.azurewebsites.net/api/HttpTriggerNodeJS3',myData,  {headers: {'x-functions-key': apiKey}})
+    .success(function (data, status, headers, config) {
+        $scope.welcome = data;
+    })
+    .error(function (data, status, headers, config) {
+        console.log(status);
     });
   };
 

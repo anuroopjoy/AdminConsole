@@ -33,7 +33,9 @@ app.post('/authenticate', function (req, res) {
     first_name: 'John',
     last_name: 'Doe',
     email: 'john@doe.com',
-    id: 123
+    id: 123,
+    iss: 'https://anuroopjoy.auth0.com/',
+    aud: '3dx0S39gQ127aGi9Q6qs7uLATJpQ1PZu'
   };
 
   // We are sending the profile inside the token
